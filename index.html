@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOEIC Practice Web-App</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #64748b;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --bg: #f8fafc;
+        }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: #1e293b; line-height: 1.6; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+        h1 { text-align: center; color: var(--primary); font-size: 2.5rem; margin-bottom: 30px; border-bottom: 4px solid var(--primary); display: inline-block; width: 100%; padding-bottom: 10px; }
+        .section-title { background: var(--primary); color: white; padding: 10px 20px; border-radius: 6px; margin-top: 40px; }
+        .page-label { color: var(--secondary); font-weight: bold; font-size: 0.9rem; margin-top: 20px; display: block; }
+        .question-card { border: 1px solid #e2e8f0; padding: 20px; margin: 15px 0; border-radius: 8px; transition: all 0.2s; }
+        .question-card:hover { border-color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .btn-opt { background: white; border: 1px solid #cbd5e1; padding: 12px; border-radius: 6px; cursor: pointer; text-align: left; transition: 0.2s; }
+        .btn-opt:hover { background: #f1f5f9; border-color: var(--primary); }
+        .correct { background: var(--success) !important; color: white; border-color: var(--success) !important; }
+        .wrong { background: var(--danger) !important; color: white; border-color: var(--danger) !important; }
+        .feedback { margin-top: 10px; font-weight: 600; display: none; padding: 10px; border-radius: 4px; }
+        .part-intro { font-style: italic; color: #64748b; margin-bottom: 20px; }
+        @media (max-width: 600px) { .options-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>TOEIC EXAM PREP</h1>
+
+    <h2 class="section-title">PART 5: Incomplete Sentences</h2>
+    
+    <span class="page-label">Trang 151: Relative Pronouns</span>
+    <div id="p5-t151"></div>
+
+    <span class="page-label">Trang 157: Verb Tenses</span>
+    <div id="p5-t157"></div>
+
+    <span class="page-label">Trang 288-289: Mixed Grammar</span>
+    <div id="p5-t288"></div>
+
+    <span class="page-label">Trang 350: Vocabulary & Structure</span>
+    <div id="p5-t350"></div>
+
+    <h2 class="section-title">PART 6: Text Completion</h2>
+    <div id="p6-content"></div>
+
+    <h2 class="section-title">PART 7: Reading Comprehension</h2>
+    <p class="part-intro">Chọn đáp án đúng dựa trên nội dung bài đọc trong sách.</p>
+    <div id="p7-content"></div>
+</div>
+
+<script>
+// Gom tất cả dữ liệu vào một biến data duy nhất để các hàm bên dưới chạy đúng
+const data = {
+    // Dữ liệu Part 5
+    p5_151: [
+        { q: "All the technical staff ______ we employ are fully trained professionals.", opts: ["which", "who", "whose", "whom"], ans: "B" },
+        { q: "The processing factory ______ we visited only last month, has temporarily shut down due to a mechanical fault.", opts: ["where", "who", "which", "what"], ans: "C" },
+        { q: "The shift supervisor ______ spoke to you is called Mr. Hughes.", opts: ["that", "whom", "which", "whose"], ans: "A" },
+        { q: "The customer ______ soup was cold was offered a discount of 10 percent.", opts: ["who", "whom", "which", "whose"], ans: "D" },
+        { q: "Nobody could remember the name of the restaurant ______ we had dined the previous evening.", opts: ["when", "which", "that", "where"], ans: "D" },
+        { q: "The trainee with ______ you will be working is inexperienced, but very enthusiastic.", opts: ["who", "that", "whom", "whose"], ans: "C" },
+        { q: "We were rather surprised to find the report ______ we received from the supplier was full of criticism.", opts: ["that", "what", "whom", "whose"], ans: "A" },
+        { q: "The accountant ______ figures you queried has replied by e-mail, giving a full explanation.", opts: ["who", "whom", "whose", "which"], ans: "C" },
+        { q: "The investigators were surprised by ______ they found during the inspection.", opts: ["what", "that", "which", "whom"], ans: "A" },
+        { q: "The complex merger finally went through, ______ was a great relief to both companies.", opts: ["that", "which", "what", "who"], ans: "B" }
+    ],
+
+    // Trang 157: Verb Tenses (Thì của động từ)
+    p5_157: [
+        { q: "Did you know that Tyso Chemicals ______ exhibiting at next year's trade fair in Seattle?", opts: ["is", "are", "will be", "have been"], ans: "C" },
+        { q: "Which of your former coworkers ______ at the reunion last night?", opts: ["do you see", "did you see", "have you seen", "were you seen"], ans: "B" },
+        { q: "The guys in the marketing department ______ later this afternoon to discuss how many flyers we need to get printed...", opts: ["met", "meets", "are meeting", "has met"], ans: "C" },
+        { q: "As far as I know, Mr. Dupont ______ his office yet, so if you hurry you will probably be able to catch him.", opts: ["doesn't leave", "is not leaving", "has not left", "had not left"], ans: "C" },
+        { q: "Gary ______ notes in the lecture when he started to feel sick and had to leave.", opts: ["takes", "took", "has taken", "was taking"], ans: "D" },
+        { q: "When do you think we ______ whether or not they want to accept our proposal?", opts: ["will hear", "hear", "heard", "have heard"], ans: "A" },
+        { q: "The results of the inquiry showed that management ______ the decision to close the facility two months before...", opts: ["makes", "had made", "has made", "is making"], ans: "B" },
+        { q: "When you visit Mr. Usami's home, do not forget it is customary to take off your shoes before you ______ into the house.", opts: ["go", "will go", "went", "are going"], ans: "A" },
+        { q: "Although Encar ______ Japanese for long, she is already able to hold a conversation.", opts: ["is not learning", "doesn't learn", "has not been learning", "had not learned"], ans: "C" },
+        { q: "One month from now Mr. Oakley ______ chairman for 25 years, so we're having a party.", opts: ["will have been", "is", "has been", "will be"], ans: "A" }
+    ],
+
+    // Trang 288 & 289: Mixed Grammar (Ngữ pháp tổng hợp)
+    p5_288: [
+        { q: "How did you get so much ______ in such a short time?", opts: ["do", "did", "done", "does"], ans: "C" },
+        { q: "The green color of the water is a result ______ excessive fertilizer use on the crops.", opts: ["from", "to", "by", "of"], ans: "A" },
+        { q: "After a compromise had been reached, ______ sides in the trade dispute agreed to drop their court actions.", opts: ["every", "both", "each", "all"], ans: "B" },
+        { q: "I will e-mail my résumé, together with all the supporting documentation you requested, ______ the hour.", opts: ["at", "on", "to", "within"], ans: "D" },
+        { q: "The articles in each month's issue of Business Weekly ______ to represent the broad range of interests.", opts: ["are chosen", "choose", "choosing", "chosen"], ans: "A" },
+        { q: "The department's workload ______ a lot depending on the time of year.", opts: ["varies", "vary", "various", "variety"], ans: "A" },
+        { q: "Last year's annual conference was ______ for the first time in the Imperial Hotel, Kyoto.", opts: ["held", "hold", "holding", "holds"], ans: "A" },
+        { q: "Lawyers are still discussing the policy review, but we should learn the outcome of ______ talks before the end of the week.", opts: ["their", "they", "them", "theirs"], ans: "A" },
+        { q: "If the current economic downturn continues, it seems unlikely that banks will ______ interest rates.", opts: ["rise", "rose", "raise", "rising"], ans: "C" },
+        { q: "Throughout the weekend, there will be a wide range of optional outdoor activities ______ place.", opts: ["take", "took", "taken", "taking"], ans: "D" }
+    ],
+
+    // Trang 350: Vocabulary & Structures (Từ vựng và Cấu trúc)
+    p5_350: [
+        { q: "Mary was in Paris on business last week, so you ______ not have seen her in town last Friday.", opts: ["could", "should", "must", "would"], ans: "A" },
+        { q: "I am sorry that you have decided to leave the company, but I ______ you all the best in your future career.", opts: ["hope", "wish", "want", "desire"], ans: "B" },
+        { q: "It was almost impossible to see anything in the conference room because the light was so ______.", opts: ["bright", "dim", "clear", "sharp"], ans: "B" },
+        { q: "When asked ______ he proposed to do to revive the company's fortunes, the new C.E.O. failed to give a reply.", opts: ["that", "what", "which", "how"], ans: "B" },
+        { q: "The gala dinner for the award ceremony consisted of five ______ plus dessert.", opts: ["plates", "meals", "courses", "foods"], ans: "C" },
+        { q: "Severe water ______ throughout the south have seriously affected the number of tourists.", opts: ["shortages", "lacks", "fails", "misses"], ans: "A" },
+        { q: "As a ______, the hospital does not allow visitors who are not close relatives to visit on weekends.", opts: ["rule", "law", "policy", "norm"], ans: "A" },
+        { q: "During the night, all the long-distance trains were ______ due to a very heavy thunderstorm.", opts: ["stopped", "canceled", "delayed", "halted"], ans: "C" },
+        { q: "After the ______ of the founder, the company was sold to a rival business.", opts: ["ending", "death", "finish", "loss"], ans: "B" },
+        { q: "After several months, Jonathan finally managed to get a job in a furniture ______.", opts: ["station", "office", "store", "factory"], ans: "D" }
+    ],
+
+    // Dữ liệu Part 6
+    p6: [
+        // Nhóm 1: Alberta Movers
+        { q: "Alberta Movers (1): ...make sure you hire a ______ and professional moving company.", opts: ["depend", "dependably", "dependable", "dependence"], ans: "C" },
+        { q: "Alberta Movers (2): Alberta Movers will ______ all aspects of your commercial move...", opts: ["handle", "handling", "handled", "handles"], ans: "A" },
+        { q: "Alberta Movers (3): ...protecting your furniture and equipment ______ labeling, loading, and delivery.", opts: ["from", "to", "at", "by"], ans: "B" },
+        { q: "Alberta Movers (4): Come to Alberta Movers - for a low-cost, efficient moving service. ______", opts: ["We are moving.", "Call us today.", "It is cheap.", "You'll be glad you did!"], ans: "D" },
+
+        // Nhóm 2: Text Completion (13-16)
+        { q: "(13) ______ you get the email about the sales conference in London next month?", opts: ["Have", "Do", "Did", "Are"], ans: "C" },
+        { q: "(14) I'm so busy right now... I was wondering if you wanted to attend in my place. ______", opts: ["See you there.", "No thanks.", "I'm busy.", "I do hope you can make it."], ans: "D" },
+        { q: "(15) Please liaise with my secretary Phil and he will make all the ______ arrangements...", opts: ["necessity", "necessary", "necessarily", "necessitate"], ans: "B" },
+        { q: "(16) You should have a chance ______ some sightseeing while you're there!", opts: ["to do", "doing", "did", "done"], ans: "A" },
+
+        // Nhóm 3: E-mail (143-146)
+        { q: "(143) Two experienced trainers ______ work with a group...", opts: ["for", "at", "to", "by"], ans: "C" },
+        { q: "(144) Sessions will take ______ at our offices.", opts: ["off", "place", "part", "after"], ans: "B" },
+        { q: "(145) Beginning October 23. ______", opts: ["The weather is nice.", "We need more trainers.", "The cost is high.", "The sessions will end the week before Christmas."], ans: "D" },
+        { q: "(146) 30% of the fee ______ within the next three days.", opts: ["paid", "pays", "will be paid", "paying"], ans: "C" },
+
+        // Nhóm 4: Letters and Faxes
+        { q: "Letters (1): Why was the letter written?", opts: ["To complain", "To cancel", "To say thanks", "To make an invitation"], ans: "D" },
+        { q: "Letters (2): What does the letter mainly discuss?", opts: ["The budget", "A new office", "An upcoming event", "Technical problems"], ans: "C" },
+        { q: "Letters (3): What is NOT mentioned about the conference?", opts: ["Location", "Date", "Speaker", "The registration requirements"], ans: "D" },
+        { q: "Letters (4): What is indicated about Dr. Parker?", opts: ["She is an experienced presenter.", "She is late.", "She is a student.", "She is retired."], ans: "A" }
+    ],
+
+    // Dữ liệu Part 7
+    p7: [
+        // Trang 229: Letters and Faxes
+        { q: "Trang 229 (1): Why was the letter written?", opts: ["To complain", "To cancel", "To say thanks", "To make an invitation"], ans: "D" },
+        { q: "Trang 229 (2): What does the letter mainly discuss?", opts: ["The budget", "A new office", "An upcoming event", "Technical problems"], ans: "C" },
+        { q: "Trang 229 (3): What is NOT mentioned about the conference?", opts: ["Location", "Date", "Speaker", "The registration requirements"], ans: "D" },
+        { q: "Trang 229 (4): What is indicated about Dr. Parker?", opts: ["She is an experienced presenter.", "She is late.", "She is a student.", "She is retired."], ans: "A" },
+
+        // Trang 234: Notices
+        { q: "Trang 234 (1): Who most likely issued this notice?", opts: ["A student", "A customer", "A bank", "A CCDA employee"], ans: "D" },
+        { q: "Trang 234 (2): Who may NOT enter this competition?", opts: ["Employees", "Students", "Young children", "Seniors"], ans: "C" },
+        { q: "Trang 234 (3): What is indicated about the competition?", opts: ["It is free.", "All entrants must pay to take part.", "It is only for locals.", "It lasts a year."], ans: "B" },
+        { q: "Trang 234 (4): When will the competition close?", opts: ["March 25", "April 1", "May 10", "June 30"], ans: "A" },
+        { q: "Trang 234 (5): What will the winner receive?", opts: ["$2,500 in prize money", "A new car", "A trophy", "A scholarship"], ans: "A" },
+
+        // Trang 260: Triple Passages
+        { q: "Trang 260 (1): What is the main purpose of Nadia Romanova's e-mail?", opts: ["To fire staff", "To notify staff of a draft schedule", "To book a hotel", "To complain about a delay"], ans: "B" },
+        { q: "Trang 260 (2): By what time should Dr. McCarthy aim to complete his presentation?", opts: ["1:00 P.M", "2:00 P.M", "3:00 P.M", "4:00 P.M"], ans: "C" },
+        { q: "Trang 260 (3): Who is Rupal Ahuja?", opts: ["A doctor", "A pilot", "A journalist", "An employee of BVI Agro"], ans: "D" },
+        { q: "Trang 260 (4): Which session will NOT take place?", opts: ["Lunch", "Tour of Packaging Department", "Opening speech", "Q&A session"], ans: "B" },
+        { q: "Trang 260 (5): What does Ms. Ahuja mean by 'better advised to contact the group at the Lincoln Hotel'?", opts: ["Practical to phone the hotel instead of e-mailing", "The hotel is full", "The group is lost", "She is on vacation"], ans: "A" },
+
+        // Trang 282: Reading 40-44
+        { q: "Trang 282 (40): What do all the companies invested in by Mr. Capelli have in common?", opts: ["They are tech startups.", "Connected with the sea or ocean.", "They are in Italy.", "They are failing."], ans: "B" },
+        { q: "Trang 282 (41): Which company did Mr. Capelli discuss on JBW Radio?", opts: ["SeaLife", "Oceanic", "WavePower", "BioFabric"], ans: "D" },
+        { q: "Trang 282 (42): What is meant by 'tidal energy will be the next big thing'?", opts: ["It will be expensive.", "It is dangerous.", "It will fail.", "Energy from waves will be a new trend."], ans: "D" },
+        { q: "Trang 282 (43): What is indicated about 'The Balance Sheet'?", opts: ["It is an old show.", "It only recently started broadcasting.", "It is very boring.", "It is only about sports."], ans: "B" },
+        { q: "Trang 282 (44): What is probably true about Ms. Morgan?", opts: ["Received financial support from New Life Ventures.", "She is a radio host.", "She is a fisherman.", "She is retiring."], ans: "A" },
+
+        // Trang 284: Reading 45-49
+        { q: "Trang 284 (45): What is the purpose of the e-mail?", opts: ["To quit a job", "To find a date to hold an event", "To order pizza", "To cancel a meeting"], ans: "B" },
+        { q: "Trang 284 (46): What can be inferred about Melissa Murphy's company?", opts: ["It is hiring new employees.", "It is going bankrupt.", "It is moving to China.", "It is selling cars."], ans: "A" },
+        { q: "Trang 284 (47): What is NOT indicated about the event?", opts: ["It is a focus group.", "The agenda will be identical to last year's.", "It is in June.", "It is important."], ans: "B" },
+        { q: "Trang 284 (48): On which day will the focus group probably take place?", opts: ["Monday 2", "Tuesday 3", "Wednesday 4", "Friday 6"], ans: "B" },
+        { q: "Trang 284 (49): Who most likely is Arthur Zimmerman?", opts: ["A line manager", "A chef", "A driver", "A customer"], ans: "A" },
+
+        // Trang 302: Gaming Trends
+        { q: "Trang 302 (163): Growth of video game market in the Middle East?", opts: ["It is decreasing.", "It exceeds that of the USA.", "It is zero.", "It is the same as Europe."], ans: "B" },
+        { q: "Trang 302 (164): Which players are of particular interest to advertisers?", opts: ["Young men", "Elderly women", "Toddlers", "Professional athletes"], ans: "A" },
+        { q: "Trang 302 (165): Word 'maturity' (para 1) is closest to:", opts: ["Full development", "Old age", "Boredom", "Complexity"], ans: "A" },
+
+        // Trang 304: MEMO
+        { q: "Trang 304 (170): What is the purpose of this memo?", opts: ["To fire staff", "To hire staff", "To change office", "To announce a new company policy"], ans: "D" },
+        { q: "Trang 304 (171): What does the writer imply?", opts: ["Staff are lazy.", "The company wants to improve its image.", "They are losing money.", "The office is too small."], ans: "B" },
+        { q: "Trang 304 (172): What are the recipients asked to do?", opts: ["Ask staff for suggestions", "Work overtime", "Clean the kitchen", "Call the police"], ans: "A" },
+        { q: "Trang 304 (173): Word 'tricky' (para 3, line 1) is closest to:", opts: ["Easy", "Funny", "Complex", "Problematic"], ans: "D" },
+
+        // Trang 306: Reading 176-180
+        { q: "Trang 306 (176): Why did Mr. Evans write to Mr. Mackintosh?", opts: ["To complain", "To invite him to dinner", "To ask for money", "To suggest a date for a formal meeting"], ans: "D" },
+        { q: "Trang 306 (177): What is suggested about Stockton Components?", opts: ["It is closing.", "It has a flexible retirement policy.", "It is very far.", "It only hires men."], ans: "B" },
+        { q: "Trang 306 (178): Who is Margaret Denham?", opts: ["A CEO", "A union representative", "A nurse", "A secretary"], ans: "B" },
+        { q: "Trang 306 (179): When is the meeting scheduled?", opts: ["June 1", "June 15", "June 20", "June 30"], ans: "D" },
+        { q: "Trang 306 (180): What can be inferred about Mr. Mackintosh?", opts: ["He is 20.", "He is a student.", "He is in his sixties.", "He is a doctor."], ans: "C" },
+
+        // Trang 355 & 356: Nana & Vitamin C
+        { q: "Trang 355 (147): What is suggested about Nana?", opts: ["She is a doctor.", "She is a stranger.", "She is a family friend.", "She is a teacher."], ans: "C" },
+        { q: "Trang 355 (148): What does Minoru want Nana to take to HK?", opts: ["Money", "Food", "Books", "Photos"], ans: "D" },
+        { q: "Trang 355 (149): 'My customers are going mad for these' means:", opts: ["They are angry.", "The items are very popular.", "They are broken.", "They are expensive."], ans: "B" },
+        { q: "Trang 356 (150): What is the purpose of this article?", opts: ["To sell vitamins", "To review a movie", "To introduce results of a study", "To complain about health"], ans: "C" },
+        { q: "Trang 356 (151): What is indicated about vitamin C?", opts: ["It is dangerous.", "It may have important health benefits.", "It is blue.", "It is only in meat."], ans: "B" },
+        { q: "Trang 356 (152): Word 'viable' (para 2, line 7) is closest to:", opts: ["Dead", "Practical", "Expensive", "Large"], ans: "B" },
+
+        // Trang 372: GoMart Notice
+        { q: "Trang 372 (191): What is indicated about Community Giving project?", opts: ["Aimed at charities that operate locally.", "It is for profit.", "It is only for kids.", "It is closed."], ans: "A" },
+        { q: "Trang 372 (192): Which charity does Sharon King work for?", opts: ["Red Cross", "Snack and Chat", "Unicef", "Greenpeace"], ans: "B" },
+        { q: "Trang 372 (193): Word 'terminally' is closest to:", opts: ["Incurably", "Slowly", "Happily", "Finally"], ans: "A" },
+        { q: "Trang 372 (194): Why might GoMart reject Ella's application?", opts: ["She is too old.", "She is late.", "She is applying as a private individual.", "She lives far away."], ans: "D" },
+        { q: "Trang 372 (195): 'Any amount, no matter how small' means:", opts: ["She wants $1,000.", "She doesn't need money.", "The size of donation is not important.", "She is rich."], ans: "C" },
+
+        // Trang 374: Book Award
+        { q: "Trang 374 (196): What is indicated about Curzon Trust Award?", opts: ["Only for kids.", "For US authors.", "It is open to British authors.", "It is for music."], ans: "C" },
+        { q: "Trang 374 (197): Which author won the prize?", opts: ["James Roderick", "Sarah Smith", "John Doe", "Alan Walker"], ans: "A" },
+        { q: "Trang 374 (198): Favorite book of the writer?", opts: ["City Life", "Timperford: A Village", "Mountain High", "Ocean Deep"], ans: "B" },
+        { q: "Trang 374 (199): What is NOT indicated about the writer?", opts: ["She likes books.", "She is a reviewer.", "She grew up in a village.", "She is a woman."], ans: "C" },
+        { q: "Trang 374 (200): Meaning of the city situation comparison?", opts: ["Cities are better.", "Cities are cheap.", "Cities are loud.", "There are people in cities who feel alone."], ans: "D" },
+
+        // Trang 401 & 402: Conference & JourneyPlus
+        { q: "Trang 401 (162): Where was this document published?", opts: ["In a book", "On a website", "In a newspaper", "On a poster"], ans: "B" },
+        { q: "Trang 401 (163): NOT required to include?", opts: ["Abstract", "Title", "Name", "The registration fee"], ans: "D" },
+        { q: "Trang 401 (164): Word 'alleviate' means:", opts: ["Increase", "Lessen", "Change", "Stop"], ans: "B" },
+        { q: "Trang 402 (165): What is suggested about Ms. Cheung?", opts: ["She is a pilot.", "She recently visited a JourneyPlus branch.", "She is a lawyer.", "She is angry."], ans: "B" },
+        { q: "Trang 402 (166): What was NOT included with the letter?", opts: ["Brochure", "Map", "Ticket", "A receipt for the deposit"], ans: "D" },
+        { q: "Trang 402 (167): What is indicated in the letter?", opts: ["Trip is free.", "The travel arrangements are unconfirmed.", "It is raining.", "She won a prize."], ans: "D" }
+    ],
+};
+
+// Hàm Render câu hỏi
+function renderQuestions(id, list) {
+    const container = document.getElementById(id);
+    if (!container || !list) return; // Bảo vệ nếu id hoặc list bị thiếu
+    
+    list.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = 'question-card';
+        card.innerHTML = `
+            <p><strong>${index + 1}.</strong> ${item.q}</p>
+            <div class="options-grid">
+                ${item.opts.map((opt, i) => `
+                    <button class="btn-opt" onclick="check(this, '${String.fromCharCode(65+i)}', '${item.ans}')">
+                        ${String.fromCharCode(65+i)}. ${opt}
+                    </button>
+                `).join('')}
+            </div>
+            <div class="feedback"></div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+// Hàm kiểm tra đáp án
+function check(btn, choice, correct) {
+    const parent = btn.parentElement;
+    const feedback = parent.nextElementSibling;
+    const buttons = parent.querySelectorAll('.btn-opt');
+    
+    buttons.forEach(b => b.disabled = true);
+    
+    if(choice === correct) {
+        btn.classList.add('correct');
+        feedback.innerHTML = "Chính xác! 🎉";
+        feedback.style.color = "var(--success)";
+    } else {
+        btn.classList.add('wrong');
+        const correctIndex = correct.charCodeAt(0) - 65;
+        buttons[correctIndex].classList.add('correct');
+        feedback.innerHTML = `Sai rồi. Đáp án đúng là ${correct}.`;
+        feedback.style.color = "var(--danger)";
+    }
+    feedback.style.display = "block";
+}
+
+// Khởi tạo hiển thị (Đảm bảo gọi đúng tên mảng trong object 'data')
+document.addEventListener('DOMContentLoaded', () => {
+    renderQuestions('p5-t151', data.p5_151);
+    renderQuestions('p5-t157', data.p5_157);
+    renderQuestions('p5-t288', data.p5_288);
+    renderQuestions('p5-t350', data.p5_350);
+    renderQuestions('p6-content', data.p6);
+    renderQuestions('p7-content', data.p7);
+});
+</script>
+</body>
+</html>
