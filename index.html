@@ -50,6 +50,18 @@
 
     <h2 class="section-title">PART 6: Text Completion</h2>
     <div id="p6-content"></div>
+    
+    <span class="page-label">Review Test: ALBERTA MOVERS</span>
+    <div id="p6-alberta"></div>
+
+    <span class="page-label">Text Completion (13-16): Sales Conference</span>
+    <div id="p6-sales"></div>
+
+    <span class="page-label">E-mail (143-146): Trainer Sessions</span>
+    <div id="p6-email"></div>
+
+    <span class="page-label">Letters and Faxes: Conference Invitation</span>
+    <div id="p6-letters"></div>
 
     <h2 class="section-title">PART 7: Reading Comprehension</h2>
     <p class="part-intro">Chọn đáp án đúng dựa trên nội dung bài đọc trong sách.</p>
@@ -116,26 +128,29 @@ const data = {
     ],
 
     // Dữ liệu Part 6
-    p6: [
+    p6_alberta: [
         // Nhóm 1: Alberta Movers
         { q: "Alberta Movers (1): ...make sure you hire a ______ and professional moving company.", opts: ["depend", "dependably", "dependable", "dependence"], ans: "C" },
         { q: "Alberta Movers (2): Alberta Movers will ______ all aspects of your commercial move...", opts: ["handle", "handling", "handled", "handles"], ans: "A" },
         { q: "Alberta Movers (3): ...protecting your furniture and equipment ______ labeling, loading, and delivery.", opts: ["from", "to", "at", "by"], ans: "B" },
         { q: "Alberta Movers (4): Come to Alberta Movers - for a low-cost, efficient moving service. ______", opts: ["We are moving.", "Call us today.", "It is cheap.", "You'll be glad you did!"], ans: "D" },
-
+    ],
         // Nhóm 2: Text Completion (13-16)
+    p6_sales: [
         { q: "(13) ______ you get the email about the sales conference in London next month?", opts: ["Have", "Do", "Did", "Are"], ans: "C" },
         { q: "(14) I'm so busy right now... I was wondering if you wanted to attend in my place. ______", opts: ["See you there.", "No thanks.", "I'm busy.", "I do hope you can make it."], ans: "D" },
         { q: "(15) Please liaise with my secretary Phil and he will make all the ______ arrangements...", opts: ["necessity", "necessary", "necessarily", "necessitate"], ans: "B" },
         { q: "(16) You should have a chance ______ some sightseeing while you're there!", opts: ["to do", "doing", "did", "done"], ans: "A" },
 
         // Nhóm 3: E-mail (143-146)
+    p6_email: [
         { q: "(143) Two experienced trainers ______ work with a group...", opts: ["for", "at", "to", "by"], ans: "C" },
         { q: "(144) Sessions will take ______ at our offices.", opts: ["off", "place", "part", "after"], ans: "B" },
         { q: "(145) Beginning October 23. ______", opts: ["The weather is nice.", "We need more trainers.", "The cost is high.", "The sessions will end the week before Christmas."], ans: "D" },
         { q: "(146) 30% of the fee ______ within the next three days.", opts: ["paid", "pays", "will be paid", "paying"], ans: "C" },
-
+    ],
         // Nhóm 4: Letters and Faxes
+    p6_letters: [
         { q: "Letters (1): Why was the letter written?", opts: ["To complain", "To cancel", "To say thanks", "To make an invitation"], ans: "D" },
         { q: "Letters (2): What does the letter mainly discuss?", opts: ["The budget", "A new office", "An upcoming event", "Technical problems"], ans: "C" },
         { q: "Letters (3): What is NOT mentioned about the conference?", opts: ["Location", "Date", "Speaker", "The registration requirements"], ans: "D" },
@@ -279,9 +294,13 @@ document.addEventListener('DOMContentLoaded', () => {
     renderQuestions('p5-t157', data.p5_157);
     renderQuestions('p5-t288', data.p5_288);
     renderQuestions('p5-t350', data.p5_350);
-    renderQuestions('p6-content', data.p6);
+    renderQuestions('p6-alberta', data.p6_alberta);
+    renderQuestions('p6-sales', data.p6_sales);
+    renderQuestions('p6-email', data.p6_email);
+    renderQuestions('p6-letters', data.p6_letters);
     renderQuestions('p7-content', data.p7);
 });
 </script>
 </body>
+
 </html>
