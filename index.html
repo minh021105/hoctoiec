@@ -63,9 +63,44 @@
     <span class="page-label">Letters and Faxes: Conference Invitation</span>
     <div id="p6-letters"></div>
 
-    <h2 class="section-title">PART 7: Reading Comprehension</h2>
+   <h2 class="section-title">PART 7: Reading Comprehension</h2>
     <p class="part-intro">Chọn đáp án đúng dựa trên nội dung bài đọc trong sách.</p>
-    <div id="p7-content"></div>
+    
+    <span class="page-label">Trang 229: Letters and Faxes</span>
+    <div id="p7-t229"></div>
+    
+    <span class="page-label">Trang 234: Notices (Competition)</span>
+    <div id="p7-t234"></div>
+    
+    <span class="page-label">Trang 260: Triple Passages (BVI Agro)</span>
+    <div id="p7-t260"></div>
+    
+    <span class="page-label">Trang 282: Reading (Tidal Energy)</span>
+    <div id="p7-t282"></div>
+    
+    <span class="page-label">Trang 284: E-mail (Focus Group)</span>
+    <div id="p7-t284"></div>
+    
+    <span class="page-label">Trang 302: Gaming Trends</span>
+    <div id="p7-t302"></div>
+    
+    <span class="page-label">Trang 304: MEMO (Company Policy)</span>
+    <div id="p7-t304"></div>
+    
+    <span class="page-label">Trang 306: Reading (Stockton Components)</span>
+    <div id="p7-t306"></div>
+    
+    <span class="page-label">Trang 355-356: Nana & Vitamin C study</span>
+    <div id="p7-t355"></div>
+    
+    <span class="page-label">Trang 372: NOTICE (GoMart)</span>
+    <div id="p7-t372"></div>
+    
+    <span class="page-label">Trang 374: Curzon Trust Award</span>
+    <div id="p7-t374"></div>
+    
+    <span class="page-label">Trang 401-402: Conference & JourneyPlus</span>
+    <div id="p7-t401"></div>
 </div>
 
 <script>
@@ -158,14 +193,15 @@ const data = {
     ],
 
     // Dữ liệu Part 7
-    p7: [
-        // Trang 229: Letters and Faxes
+  
+    p7_229: [
         { q: "Trang 229 (1): Why was the letter written?", opts: ["To complain", "To cancel", "To say thanks", "To make an invitation"], ans: "D" },
         { q: "Trang 229 (2): What does the letter mainly discuss?", opts: ["The budget", "A new office", "An upcoming event", "Technical problems"], ans: "C" },
         { q: "Trang 229 (3): What is NOT mentioned about the conference?", opts: ["Location", "Date", "Speaker", "The registration requirements"], ans: "D" },
         { q: "Trang 229 (4): What is indicated about Dr. Parker?", opts: ["She is an experienced presenter.", "She is late.", "She is a student.", "She is retired."], ans: "A" },
-
+    ],
         // Trang 234: Notices
+    p7_234: [
         { q: "Trang 234 (1): Who most likely issued this notice?", opts: ["A student", "A customer", "A bank", "A CCDA employee"], ans: "D" },
         { q: "Trang 234 (2): Who may NOT enter this competition?", opts: ["Employees", "Students", "Young children", "Seniors"], ans: "C" },
         { q: "Trang 234 (3): What is indicated about the competition?", opts: ["It is free.", "All entrants must pay to take part.", "It is only for locals.", "It lasts a year."], ans: "B" },
@@ -173,6 +209,8 @@ const data = {
         { q: "Trang 234 (5): What will the winner receive?", opts: ["$2,500 in prize money", "A new car", "A trophy", "A scholarship"], ans: "A" },
 
         // Trang 260: Triple Passages
+        ],
+    p7_260: [
         { q: "Trang 260 (1): What is the main purpose of Nadia Romanova's e-mail?", opts: ["To fire staff", "To notify staff of a draft schedule", "To book a hotel", "To complain about a delay"], ans: "B" },
         { q: "Trang 260 (2): By what time should Dr. McCarthy aim to complete his presentation?", opts: ["1:00 P.M", "2:00 P.M", "3:00 P.M", "4:00 P.M"], ans: "C" },
         { q: "Trang 260 (3): Who is Rupal Ahuja?", opts: ["A doctor", "A pilot", "A journalist", "An employee of BVI Agro"], ans: "D" },
@@ -180,6 +218,8 @@ const data = {
         { q: "Trang 260 (5): What does Ms. Ahuja mean by 'better advised to contact the group at the Lincoln Hotel'?", opts: ["Practical to phone the hotel instead of e-mailing", "The hotel is full", "The group is lost", "She is on vacation"], ans: "A" },
 
         // Trang 282: Reading 40-44
+        ],
+    p7_282: [
         { q: "Trang 282 (40): What do all the companies invested in by Mr. Capelli have in common?", opts: ["They are tech startups.", "Connected with the sea or ocean.", "They are in Italy.", "They are failing."], ans: "B" },
         { q: "Trang 282 (41): Which company did Mr. Capelli discuss on JBW Radio?", opts: ["SeaLife", "Oceanic", "WavePower", "BioFabric"], ans: "D" },
         { q: "Trang 282 (42): What is meant by 'tidal energy will be the next big thing'?", opts: ["It will be expensive.", "It is dangerous.", "It will fail.", "Energy from waves will be a new trend."], ans: "D" },
@@ -187,6 +227,8 @@ const data = {
         { q: "Trang 282 (44): What is probably true about Ms. Morgan?", opts: ["Received financial support from New Life Ventures.", "She is a radio host.", "She is a fisherman.", "She is retiring."], ans: "A" },
 
         // Trang 284: Reading 45-49
+        ],
+    p7_284: [
         { q: "Trang 284 (45): What is the purpose of the e-mail?", opts: ["To quit a job", "To find a date to hold an event", "To order pizza", "To cancel a meeting"], ans: "B" },
         { q: "Trang 284 (46): What can be inferred about Melissa Murphy's company?", opts: ["It is hiring new employees.", "It is going bankrupt.", "It is moving to China.", "It is selling cars."], ans: "A" },
         { q: "Trang 284 (47): What is NOT indicated about the event?", opts: ["It is a focus group.", "The agenda will be identical to last year's.", "It is in June.", "It is important."], ans: "B" },
@@ -194,17 +236,23 @@ const data = {
         { q: "Trang 284 (49): Who most likely is Arthur Zimmerman?", opts: ["A line manager", "A chef", "A driver", "A customer"], ans: "A" },
 
         // Trang 302: Gaming Trends
+        ],
+    p7_302: [
         { q: "Trang 302 (163): Growth of video game market in the Middle East?", opts: ["It is decreasing.", "It exceeds that of the USA.", "It is zero.", "It is the same as Europe."], ans: "B" },
         { q: "Trang 302 (164): Which players are of particular interest to advertisers?", opts: ["Young men", "Elderly women", "Toddlers", "Professional athletes"], ans: "A" },
         { q: "Trang 302 (165): Word 'maturity' (para 1) is closest to:", opts: ["Full development", "Old age", "Boredom", "Complexity"], ans: "A" },
 
         // Trang 304: MEMO
+        ],
+    p7_304: [
         { q: "Trang 304 (170): What is the purpose of this memo?", opts: ["To fire staff", "To hire staff", "To change office", "To announce a new company policy"], ans: "D" },
         { q: "Trang 304 (171): What does the writer imply?", opts: ["Staff are lazy.", "The company wants to improve its image.", "They are losing money.", "The office is too small."], ans: "B" },
         { q: "Trang 304 (172): What are the recipients asked to do?", opts: ["Ask staff for suggestions", "Work overtime", "Clean the kitchen", "Call the police"], ans: "A" },
         { q: "Trang 304 (173): Word 'tricky' (para 3, line 1) is closest to:", opts: ["Easy", "Funny", "Complex", "Problematic"], ans: "D" },
 
         // Trang 306: Reading 176-180
+        ],
+    p7_306: [
         { q: "Trang 306 (176): Why did Mr. Evans write to Mr. Mackintosh?", opts: ["To complain", "To invite him to dinner", "To ask for money", "To suggest a date for a formal meeting"], ans: "D" },
         { q: "Trang 306 (177): What is suggested about Stockton Components?", opts: ["It is closing.", "It has a flexible retirement policy.", "It is very far.", "It only hires men."], ans: "B" },
         { q: "Trang 306 (178): Who is Margaret Denham?", opts: ["A CEO", "A union representative", "A nurse", "A secretary"], ans: "B" },
@@ -212,6 +260,8 @@ const data = {
         { q: "Trang 306 (180): What can be inferred about Mr. Mackintosh?", opts: ["He is 20.", "He is a student.", "He is in his sixties.", "He is a doctor."], ans: "C" },
 
         // Trang 355 & 356: Nana & Vitamin C
+        ],
+    p7_355: [
         { q: "Trang 355 (147): What is suggested about Nana?", opts: ["She is a doctor.", "She is a stranger.", "She is a family friend.", "She is a teacher."], ans: "C" },
         { q: "Trang 355 (148): What does Minoru want Nana to take to HK?", opts: ["Money", "Food", "Books", "Photos"], ans: "D" },
         { q: "Trang 355 (149): 'My customers are going mad for these' means:", opts: ["They are angry.", "The items are very popular.", "They are broken.", "They are expensive."], ans: "B" },
@@ -220,6 +270,8 @@ const data = {
         { q: "Trang 356 (152): Word 'viable' (para 2, line 7) is closest to:", opts: ["Dead", "Practical", "Expensive", "Large"], ans: "B" },
 
         // Trang 372: GoMart Notice
+        ],
+    p7_372: [
         { q: "Trang 372 (191): What is indicated about Community Giving project?", opts: ["Aimed at charities that operate locally.", "It is for profit.", "It is only for kids.", "It is closed."], ans: "A" },
         { q: "Trang 372 (192): Which charity does Sharon King work for?", opts: ["Red Cross", "Snack and Chat", "Unicef", "Greenpeace"], ans: "B" },
         { q: "Trang 372 (193): Word 'terminally' is closest to:", opts: ["Incurably", "Slowly", "Happily", "Finally"], ans: "A" },
@@ -227,6 +279,8 @@ const data = {
         { q: "Trang 372 (195): 'Any amount, no matter how small' means:", opts: ["She wants $1,000.", "She doesn't need money.", "The size of donation is not important.", "She is rich."], ans: "C" },
 
         // Trang 374: Book Award
+        ],
+    p7_374: [
         { q: "Trang 374 (196): What is indicated about Curzon Trust Award?", opts: ["Only for kids.", "For US authors.", "It is open to British authors.", "It is for music."], ans: "C" },
         { q: "Trang 374 (197): Which author won the prize?", opts: ["James Roderick", "Sarah Smith", "John Doe", "Alan Walker"], ans: "A" },
         { q: "Trang 374 (198): Favorite book of the writer?", opts: ["City Life", "Timperford: A Village", "Mountain High", "Ocean Deep"], ans: "B" },
@@ -234,6 +288,8 @@ const data = {
         { q: "Trang 374 (200): Meaning of the city situation comparison?", opts: ["Cities are better.", "Cities are cheap.", "Cities are loud.", "There are people in cities who feel alone."], ans: "D" },
 
         // Trang 401 & 402: Conference & JourneyPlus
+        ],
+    p7_401: [
         { q: "Trang 401 (162): Where was this document published?", opts: ["In a book", "On a website", "In a newspaper", "On a poster"], ans: "B" },
         { q: "Trang 401 (163): NOT required to include?", opts: ["Abstract", "Title", "Name", "The registration fee"], ans: "D" },
         { q: "Trang 401 (164): Word 'alleviate' means:", opts: ["Increase", "Lessen", "Change", "Stop"], ans: "B" },
@@ -298,10 +354,22 @@ document.addEventListener('DOMContentLoaded', () => {
     renderQuestions('p6-sales', data.p6_sales);
     renderQuestions('p6-email', data.p6_email);
     renderQuestions('p6-letters', data.p6_letters);
-    renderQuestions('p7-content', data.p7);
+    renderQuestions('p7-t229', data.p7_229);
+    renderQuestions('p7-t234', data.p7_234);
+    renderQuestions('p7-t260', data.p7_260);
+    renderQuestions('p7-t282', data.p7_282);
+    renderQuestions('p7-t284', data.p7_284);
+    renderQuestions('p7-t302', data.p7_302);
+    renderQuestions('p7-t304', data.p7_304);
+    renderQuestions('p7-t306', data.p7_306);
+    renderQuestions('p7-t355', data.p7_355);
+    renderQuestions('p7-t372', data.p7_372);
+    renderQuestions('p7-t374', data.p7_374);
+    renderQuestions('p7-t401', data.p7_401);
 });
 </script>
 </body>
 
 </html>
+
 
